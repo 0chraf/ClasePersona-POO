@@ -1,5 +1,5 @@
-
 package t05.pkg001.pkg09;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -16,7 +16,6 @@ public class Persona {
             this.nombre = nombre;
             this.apellidos = apellidos;
         }
-
     }
 
     public Persona(String nombre, String apellidos, String fechaNacimiento) throws IllegalArgumentException {
@@ -43,7 +42,6 @@ public class Persona {
 
     public void setFechaNacimiento(String fechaNacimiento) throws IllegalArgumentException {
         this.fechaNacimiento = generarFecha(fechaNacimiento);
-
     }
 
     public String getFechaNacimiento(char separador) {
@@ -52,8 +50,7 @@ public class Persona {
             throw new IllegalArgumentException();
         } else {
             if (this.fechaNacimiento != null) {
-            
-            fecha = String.format("%02d%c%02d%c%d", fechaNacimiento.getDayOfMonth(), separador,fechaNacimiento.getMonthValue(), separador, fechaNacimiento.getYear());
+                fecha = String.format("%02d%c%02d%c%d", fechaNacimiento.getDayOfMonth(), separador, fechaNacimiento.getMonthValue(), separador, fechaNacimiento.getYear());
             }
         }
         return fecha;
@@ -67,7 +64,6 @@ public class Persona {
         if (!fecha.matches(regex)) {
             throw new IllegalArgumentException();
         } else {
-
             try {
                 dia = Integer.parseInt(fecha.substring(0, 2));
                 mes = Integer.parseInt(fecha.substring(3, 5));
@@ -77,8 +73,20 @@ public class Persona {
                 throw new IllegalArgumentException();
             }
         }
-
         return resultado;
     }
-}
 
+    public int getEdadEnFecha(String cadenaFecha) throws IllegalArgumentException {
+        int edad = 0;
+        LocalDate fecha;
+
+        fecha = generarFecha(cadenaFecha);
+        edad = fecha.getYear() - fechaNacimiento.getYear();
+        if (fechaNacimiento.getMonthValue() > fecha.getMonthValue()
+                || (fechaNacimiento.getMonthValue() == fecha.getMonthValue() && fechaNacimiento.getDayOfMonth() > fecha.getDayOfMonth())) {
+            edad = edad - 1;
+        }
+        return edad;
+
+    }
+}
