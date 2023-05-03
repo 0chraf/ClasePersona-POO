@@ -89,4 +89,22 @@ public class Persona {
         return edad;
 
     }
+     public int getEdad() {
+        int edad = 0;
+        LocalDate fecha = LocalDate.now();
+
+        if (fechaNacimiento.getYear() > fecha.getYear()
+                || fechaNacimiento.getYear() == fecha.getYear() && (fechaNacimiento.getMonthValue() > fecha.getMonthValue())
+                || fechaNacimiento.getYear() == fecha.getYear() && fechaNacimiento.getMonthValue() == fecha.getMonthValue() && (fechaNacimiento.getDayOfMonth() > fecha.getDayOfMonth())) {
+            edad = -1;
+        } else {
+            edad = fecha.getYear() - fechaNacimiento.getYear();
+            if (fechaNacimiento.getMonthValue() > fecha.getMonthValue()
+                    || (fechaNacimiento.getMonthValue() == fecha.getMonthValue() && fechaNacimiento.getDayOfMonth() > fecha.getDayOfMonth())) {
+                edad = edad - 1;
+            }
+        }
+
+        return edad;
+    }
 }
