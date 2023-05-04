@@ -2,6 +2,7 @@ package t05.pkg001.pkg09;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Persona {
 
@@ -89,7 +90,8 @@ public class Persona {
         return edad;
 
     }
-     public int getEdad() {
+
+    public int getEdad() {
         int edad = 0;
         LocalDate fecha = LocalDate.now();
 
@@ -107,4 +109,41 @@ public class Persona {
 
         return edad;
     }
+
+    @Override
+    public String toString() {
+
+        return "Persona{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNacimiento=" + fechaNacimiento + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.nombre);
+        hash = 17 * hash + Objects.hashCode(this.apellidos);
+        hash = 17 * hash + Objects.hashCode(this.fechaNacimiento);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Persona other = (Persona) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellidos, other.apellidos)) {
+            return false;
+        }
+        return Objects.equals(this.fechaNacimiento, other.fechaNacimiento);
+    }
+
 }
